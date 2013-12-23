@@ -1,0 +1,100 @@
+{"frames": {
+
+"blood":
+{
+	"frame": {"x":2,"y":118,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"bullet":
+{
+	"frame": {"x":12,"y":118,"w":4,"h":4},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":4,"h":4},
+	"sourceSize": {"w":4,"h":4}
+},
+"cat_1":
+{
+	"frame": {"x":838,"y":2,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"cat_2":
+{
+	"frame": {"x":772,"y":2,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"dog_1":
+{
+	"frame": {"x":68,"y":68,"w":64,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":48},
+	"sourceSize": {"w":64,"h":64}
+},
+"dog_2":
+{
+	"frame": {"x":2,"y":68,"w":64,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":48},
+	"sourceSize": {"w":64,"h":64}
+},
+"fish":
+{
+	"frame": {"x":196,"y":68,"w":36,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":48},
+	"sourceSize": {"w":36,"h":48}
+},
+"gun":
+{
+	"frame": {"x":134,"y":68,"w":60,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":4,"w":60,"h":48},
+	"sourceSize": {"w":92,"h":92}
+},
+"hero_1":
+{
+	"frame": {"x":300,"y":68,"w":64,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":44},
+	"sourceSize": {"w":64,"h":44}
+},
+"hero_2":
+{
+	"frame": {"x":234,"y":68,"w":64,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":44},
+	"sourceSize": {"w":64,"h":44}
+},
+"paw":
+{
+	"frame": {"x":2,"y":2,"w":768,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":768,"h":64},
+	"sourceSize": {"w":768,"h":64}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "entities.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:602e312a4a921c05b7e6d4cc33ad8cee:f01983944e100cfdd8b933cdd64002b5:d80676a5e85c5032e708efda4f84d8e3$"
+}
+}
