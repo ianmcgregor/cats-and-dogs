@@ -119,7 +119,8 @@
             jumpedAt = 0,
             paw,
             pawTween,
-            pawHealth = 5;
+            pawHealth = 5,
+            controls;
 
         function create() {
             // init
@@ -173,7 +174,7 @@
             game.camera.follow(hero);
             
             // gun
-            gun = game.add.sprite(600, 400, 'entities', 'gun');
+            gun = game.add.sprite(3800, 50, 'entities', 'gun');
             gun.anchor.setTo(0.5, 1);
             bullets = game.add.group();
 
@@ -190,11 +191,15 @@
 
             // hud
             hud = new HUD();
+
+            // controls
+            controls = new Controls();
         }
 
         function update() {
             // hud
             hud.update();
+            controls.update();
             
             // collide the hero with the map
             game.physics.collide(hero, layer, function(h, t) {
@@ -220,6 +225,11 @@
                     }
                     else if(game.time.now - hurtAt > hurtNext) {
                         heroHealth --;
+                        var sign = e.x - h.x > 0 ? -1 : 1;
+                        h.body.velocity.x = 1000 * sign;
+                        if(h.body.touching.down) {
+                            h.body.velocity.y = -200;
+                        }
                         hurtAt = game.time.now;
                     }
                 });
@@ -230,7 +240,7 @@
                         enemy.scale.x = enemy.body.velocity.x > 0 ? 1 : -1;
                         enemy.animations.play('walk');
                     }
-                    if(enemy.body.velocity.y < 1 && ( enemy.body.touching.left || enemy.body.touching.right ) ) {
+                    if(enemy.body.velocity.y < 1 && enemy.body.touching.down && ( enemy.body.touching.left || enemy.body.touching.right ) ) {
                         enemy.body.velocity.y = -200 + Math.random() * 200;
                         enemy.body.velocity.x = enemy.scale.x > 0 ? enemyVelocity : -enemyVelocity;
                     }
@@ -256,20 +266,22 @@
             // hero movement
             hero.body.velocity.x = 0;
 
-            if (cursors.left.isDown) {
+            if (controls.left() || cursors.left.isDown) {
                 hero.body.velocity.x = -150;
                 hero.scale.x = -1;
             }
-            else if (cursors.right.isDown) {
+            else if (controls.right() || cursors.right.isDown) {
                 hero.body.velocity.x = 150;
                 hero.scale.x = 1;
             }
             //  jump
-            if (cursors.up.isDown && hero.body.touching.down) {
+            var jumping = controls.jump() || cursors.up.isDown;
+            if (jumping && hero.body.touching.down) {
                 hero.body.velocity.y = -300;
                 jumpedAt = game.time.now;
+                //console.log('x is ', hero.x);
             }
-            else if (cursors.up.isDown && hero.body.velocity.y < 0 && hero.body.velocity.y > -600 && game.time.now - jumpedAt < 200) {
+            else if (jumping && hero.body.velocity.y < 0 && hero.body.velocity.y > -600 && game.time.now - jumpedAt < 200) {
                 hero.body.velocity.y = hero.body.velocity.y - 40;
             }
             // animation
@@ -318,7 +330,7 @@
         function updateLevel() {
            switch(level.id) {
                 case 'level1':
-                     if(Math.random() > 0.5 && enemies.length < 25 && game.time.now - enemyAddedAt > 5000) {
+                     if(Math.random() > 0.5 && enemies.length < 25 && game.time.now - enemyAddedAt > 3000) {
                         addEnemy();
                         enemyAddedAt = game.time.now;
                     }
@@ -356,7 +368,7 @@
                             .to({x: xVel}, 1000)
                             .delay(delay)
                             .onComplete.add(function() {
-                                console.log('onPawComplete')
+                                console.log('onPawComplete');
                             });
                         pawTween.start();
                     }
@@ -510,6 +522,66 @@
         return {
             'create': create,
             'update': update
+        };
+    }
+
+    function Controls() {
+        var container,
+            btnLeft,
+            btnRight,
+            btnJump,
+            btnShoot,
+            leftDown = false,
+            rightDown = false,
+            jumpDown = false,
+            shootDown = false;
+
+        container = game.add.group();
+        container.x = container.y = 0;
+
+        btnLeft = new Phaser.Button(game, 20, 370, 'entities', null, null, 'btn_up', 'btn_up', 'btn_down');
+        container.add(btnLeft);
+        btnLeft.onInputDown.add(function() {
+            leftDown = true;
+        });
+        btnLeft.onInputUp.add(function() {
+            leftDown = false;
+        });
+
+        btnRight = new Phaser.Button(game, 220, btnLeft.y, 'entities', null, null, 'btn_up', 'btn_up', 'btn_down');
+        btnRight.scale.x = -1;
+        container.add(btnRight);
+        btnRight.onInputDown.add(function() {
+            rightDown = true;
+        });
+        btnRight.onInputUp.add(function() {
+            rightDown = false;
+        });
+
+        btnJump = new Phaser.Button(game, 780, btnLeft.y, 'entities', null, null, 'btn_up', 'btn_up', 'btn_down');
+        btnJump.rotation = Math.PI * 0.5;
+        container.add(btnJump);
+        btnJump.onInputDown.add(function() {
+            jumpDown = true;
+        });
+        btnJump.onInputUp.add(function() {
+            jumpDown = false;
+        });
+
+        return {
+            update: function() {
+                container.x = game.camera.x;
+                container.y = game.camera.y;
+            },
+            left: function() {
+                return leftDown;
+            },
+            right: function() {
+                return rightDown;
+            },
+            jump: function() {
+                return jumpDown;
+            }
         };
     }
 
